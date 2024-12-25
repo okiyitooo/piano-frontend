@@ -16,7 +16,7 @@ const PianoList = () => {
                 setPianos(pianos.data);
             } catch (erro) {
                 console.error(erro);
-                setError(erro.response.data);
+                setError(erro.response);
             } finally {
                 setLoading(false);
             }

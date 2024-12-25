@@ -14,7 +14,7 @@ const LoginForm = () => {
         try {
             await login({email, password});
         } catch (err) {
-            setError(err.response.data)
+            setError(err.response)
             console.error(err)
         }
     }
