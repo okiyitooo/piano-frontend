@@ -5,7 +5,7 @@ import LogoutButton from '../auth/LogoutButton';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavBar = () => {
-    const { user, isLoggedIn } = useAuth(); // use destrured user later
+    const { isLoggedIn } = useAuth(); // use destrured user later
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light">
             <ul className="navbar-nav">
