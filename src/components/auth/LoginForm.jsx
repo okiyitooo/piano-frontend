@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { useAuth } from '../../hooks/useAuth';
-import {Input} from '../common/Input.jsx';
-import {Button} from '../common/Button.jsx';
-import {ErrorMessage } from '../common/ErrorMessage.jsx';
+import Input from '../common/Input.jsx';
+import Button from '../common/Button.jsx';
+import ErrorMessage from '../common/ErrorMessage.jsx';
 
 const LoginForm = () => {
     const [email, setEmail] = useState('');

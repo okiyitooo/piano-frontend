@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../../hooks/useAuth';
 import LogoutButton from '../auth/LogoutButton';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavBar = () => {
     const { user, isLoggedIn } = useAuth(); // use destrured user later

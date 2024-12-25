@@ -38,17 +38,44 @@ const PianoForm = ({pianoId, initialData, onPianoCreated, onPianoUpdated}) => {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <Input label="Name" value={name} onChange={setName} />
-            <Input label="Description" value={description} onChange={setDescription} />
-            <Input label="Age" value={age} onChange={setAge} />
-            <Input label="Brand" value={brand} onChange={setBrand} />
-            <Input label="Type" value={type} onChange={setType} />
-            <Input label="Price" value={price} onChange={setPrice} />
-            { type === "keyboard" && <Input label="Number of Keys" value={numberOfKeys} onChange={setNumberOfKeys} /> }
-            {error && <ErrorMessage message={error} />}
-            {isLoggedIn && <Button type="submit">{pianoId ? "Update" : "Create"} Piano</Button>}
-            {!isLoggedIn && <p>Please login to create or update a piano</p>}
+        <form onSubmit={handleSubmit} className="p-4 border rounded">
+            <div className="mb-3">
+                <Input label="Name" value={name} onChange={setName} className="form-control" />
+            </div>
+            <div className="mb-3">
+                <Input label="Description" value={description} onChange={setDescription} className="form-control" />
+            </div>
+            <div className="mb-3">
+                <Input label="Age" value={age} onChange={setAge} className="form-control" />
+            </div>
+            <div className="mb-3">
+                <Input label="Brand" value={brand} onChange={setBrand} className="form-control" />
+            </div>
+            <div className="mb-3">
+                <Input label="Type" value={type} onChange={setType} className="form-control" />
+            </div>
+            <div className="mb-3">
+                <Input label="Price" value={price} onChange={setPrice} className="form-control" />
+            </div>
+            {type === "keyboard" && (
+                <div className="mb-3">
+                    <Input label="Number of Keys" value={numberOfKeys} onChange={setNumberOfKeys} className="form-control" />
+                </div>
+            )}
+            {error && (
+                <div className="mb-3">
+                    <ErrorMessage message={error} />
+                </div>
+            )}
+            {isLoggedIn ? (
+                <Button type="submit" className="btn btn-primary">
+                    {pianoId ? "Update" : "Create"} Piano
+                </Button>
+            ) : (
+                <p>
+                    Please <a href="/login">login</a> to create or update a piano
+                </p>
+            )}
         </form>
     )
 }
