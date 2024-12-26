@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../../hooks/useAuth.js';
-import { fetchUserPurchases } from '../../services/api';
+import { fetchUserPurchases, fetchUserById } from '../../services/api';
 import LoadingSpinner from '../common/LoadingSpinner';
 import PurchaseList from '../purchases/PurchaseList.jsx';
 import ErrorMessage from '../common/ErrorMessage';
 
 const UserInfo = () => {
-    const { user, isLoggedIn } = useAuth();
+    const { user, isLoggedIn, logout } = useAuth();
     // const [users, setUsers] = useState([]);
+    const [ userData, setUserData ] = useState({});
     const [loading, setLoading] = useState(true);
     const [ userPurchases, setUserPurchases ] = useState([]);
     const [ error, setError ] = useState(null);
@@ -18,11 +19,13 @@ const UserInfo = () => {
                 if (isLoggedIn) {
                     // const usersRes = await fetchUsers(); // for admin only
                     // setUsers(usersRes.data); 
+                    const userRes = await fetchUserById(user.id);
+                    setUserData(userRes.data);
                     const purchasesRes = await fetchUserPurchases(user.id);
                     setUserPurchases(purchasesRes.data);
                 }
             } catch (err) {
-                setError(err);
+                setError(err.response?.data || "Something went wrong");
                 console.error(err);
             } finally {
                 setLoading(false);
@@ -31,15 +34,20 @@ const UserInfo = () => {
         fetchUser();}
         , [isLoggedIn, user]);
     if (loading) return <LoadingSpinner />;
-    if (error) return <ErrorMessage message={error.message}/>;
+    //if error, display error message and log out
+    if (error) {
+        return (
+            <ErrorMessage message={error.message} onRetry={logout} />
+        );
+    }
     return (
         <div className="container">
             {isLoggedIn && (
                 <>
-                    <h2>Welcome {user.firstName} {user.lastName}!</h2>
-                    <p> Email: {user.email}</p>
-                    <p> Phone Number: {user.phone}</p>
-                    <p> Sex: {user.sex}</p>
+                    <h3>Welcome {userData.firstName} {userData.lastName}!</h3>
+                    <p> Email: {userData.email}</p>
+                    <p> Phone Number: {userData.phone}</p>
+                    <p> Sex: {userData.sex}</p>
                     <p>{userPurchases.length} Purchases</p>
                     <PurchaseList purchases={userPurchases}  />    
                 </>

@@ -9,7 +9,7 @@ class Input extends Component {
                 <div className="input-field">
                     <label>{label}</label>
                     <select value={value} onChange={onChange} required={required}>
-                        <option value="" disabled>Select {label}</option>
+                        <option value="" disabled selected>Select {label}</option>
                         {options.map(option => (
                             <option key={option} value={option}>{option}</option>
                         ))}

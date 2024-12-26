@@ -4,11 +4,40 @@ const api = axios.create({
 });
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem('token');
-    if (token) {
+    if (token && !config.url.startsWith('/auth')) {
         config.headers.Authorization = `Bearer ${token}`;
     }
+    console.log('Request:', {
+        url: config.url,
+        method: config.method,
+        headers: config.headers,
+        data: config.data,
+      });
     return config;
+}, (error) => {
+    console.error('Request Error', error)
+  return Promise.reject(error);
 });
+api.interceptors.response.use(
+    (response) => {
+        console.log("Response:", {
+            url: response.config.url,
+            method: response.config.method,
+            status: response.status,
+            data: response.data,
+      });
+         return response;
+    },
+   (error) => {
+        console.error("Response Error:", {
+             url: error.config.url,
+             method: error.config.method,
+            status: error.response?.status,
+            data: error.response?.data,
+       });
+        return Promise.reject(error);
+    }
+)
 export const login = async (loginData) => {
     return await api.post('/auth/login', loginData);
 }
@@ -46,7 +75,7 @@ export const logout = async () => {
     }
 //purchases
     export const fetchUserPurchases = async (userId) => {
-        return await api.get(`/purchases/user/${userId}`);
+        return await api.get(`/purchases/users/${userId}`);
     }
     export const fetchPurchaseById = async (id) => {
         return await api.get(`/purchases/id/${id}`);

@@ -40,26 +40,26 @@ const PianoForm = ({pianoId, initialData, onPianoCreated, onPianoUpdated}) => {
     return (
         <form onSubmit={handleSubmit} className="p-4 border rounded">
             <div className="mb-3">
-                <Input label="Name" value={name} onChange={setName} className="form-control" />
+                <Input label="Name" value={name} onChange={e=>setName(e.target.value)} className="form-control" />
             </div>
             <div className="mb-3">
-                <Input label="Description" value={description} onChange={setDescription} className="form-control" />
+                <Input label="Description" value={description} onChange={e=>setDescription(e.target.value)} className="form-control" />
             </div>
             <div className="mb-3">
-                <Input label="Age" value={age} onChange={setAge} className="form-control" />
+                <Input label="Age" value={age} onChange={e=> setAge(e.target.value)} className="form-control" />
             </div>
             <div className="mb-3">
-                <Input label="Brand" value={brand} onChange={setBrand} className="form-control" />
+                <Input label="Brand" value={brand} onChange={e=> setBrand(e.target.value)} className="form-control" />
             </div>
             <div className="mb-3">
-                <Input label="Type" value={type} onChange={setType} className="form-control" />
+                <Input label="Type" value={type} onChange={e=> setType(e.target.value)} className="form-control" type="select" options={["keyboard", "grand", "acoustic"]} />
             </div>
             <div className="mb-3">
-                <Input label="Price" value={price} onChange={setPrice} className="form-control" />
+                <Input label="Price" value={price} onChange={e=> setPrice(e.target.value)} className="form-control" />
             </div>
             {type === "keyboard" && (
                 <div className="mb-3">
-                    <Input label="Number of Keys" value={numberOfKeys} onChange={setNumberOfKeys} className="form-control" />
+                    <Input label="Number of Keys" value={numberOfKeys} onChange={e=> setNumberOfKeys(e.target.value)} className="form-control" />
                 </div>
             )}
             {error && (

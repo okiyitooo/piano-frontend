@@ -17,15 +17,17 @@ const SignupForm = () => {
     const handleSubit = async(e) =>{
         e.preventDefault();
         try {
-            await signup({firstName, lastName, email, phoneNum, sex, password}); 
+            await signup({firstName, lastName, email, phone: phoneNum, sex, password}); 
         } catch (error) {
-            setError(error);
-            console.error(error);
+            setError(error.response);
+            console.error(error.response);
         }
     }
     return (
         <form onSubmit={handleSubit}>
-            {error && <ErrorMessage message={error}/>}
+            {error && <ErrorMessage message={Object.keys(error.data).map(key=>{
+                return error.data[key]
+            })}/>}
             <Input type="text" label="First Name" onChange={e=>setFirstName(e.target.value)} required={true} />
             <Input type="text" label="Last Name" onChange={e=>setLastName(e.target.value)} required={true} />
             <Input type="email" label="Email" onChange={e=>setEmail(e.target.value)} required={true} />

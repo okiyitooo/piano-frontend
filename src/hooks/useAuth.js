@@ -22,6 +22,7 @@ export const AuthProvider = ({ children }) => {
             const user = response.data ;
             setUser(user);
             setLoggedIn(true);
+            console.log(response)
             localStorage.setItem('token', user.token);
             localStorage.setItem('user', JSON.stringify(user));
             navigate('/pianos');
@@ -34,6 +35,7 @@ export const AuthProvider = ({ children }) => {
     const authSignup = async (credentials) => {
         try {
             const response = await signup(credentials)
+            console.log("response",response)
             const user = response.data;
             setUser(user);
             localStorage.setItem('user', JSON.stringify(user));
